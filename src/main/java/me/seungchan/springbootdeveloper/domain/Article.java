@@ -1,9 +1,14 @@
 package me.seungchan.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter // Getter 메서드 대안
+@NoArgsConstructor (access = AccessLevel.PROTECTED) // 기본 생성자 대안
 public class Article {
     @Id // id 필드를 기본키로 지정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본키 자동으로 1씩 증가
@@ -20,22 +25,5 @@ public class Article {
     public Article(String title, String content) {
         this.title = title;
         this.content = content;
-    }
-
-    protected Article() { // 기본 생성자.
-
-    }
-
-    // 게더
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
     }
 }
