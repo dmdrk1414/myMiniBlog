@@ -1,4 +1,4 @@
-package org.example;
+package me.seungchan;
 
 public class Main {
     public static void main(String[] args) {
