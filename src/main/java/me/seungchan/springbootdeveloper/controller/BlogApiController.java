@@ -8,10 +8,7 @@ import me.seungchan.springbootdeveloper.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,7 +33,7 @@ public class BlogApiController {
 
     // HTTP 메서드가 GET일 때 전달 받는 URL와 동일하면 메서드로 매핑
     @GetMapping("/api/articles") // 조회한뒤 반환
-    public ResponseEntity<List<ArticleResponse>> findAllArticles(){
+    public ResponseEntity<List<ArticleResponse>> findAllArticles() {
         List<ArticleResponse> articles = blogService.findAll()
                 .stream()
 
@@ -44,7 +41,19 @@ public class BlogApiController {
                 .map(ArticleResponse::new)
                 .toList();
 
-       return ResponseEntity.ok()
-               .body(articles);
+        return ResponseEntity.ok()
+                .body(articles);
+    }
+
+    // /api/articles/{id} Get 요청이 오면 블로그 글을 조회하기 위해 매핑할 메서드
+    // URL 경로에서 값 추출
+    @GetMapping("/api/articles/{id}")
+    // @PathVariable 매너테이션은 URL에서 값을 가져오는 애너테이션
+    // /api/articles/3 GET 요청을 받으면 id에 3이 들어온다.
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
+        Article article = blogService.findById(id);
+
+        return ResponseEntity.ok()
+                .body(new ArticleResponse(article));
     }
 }
