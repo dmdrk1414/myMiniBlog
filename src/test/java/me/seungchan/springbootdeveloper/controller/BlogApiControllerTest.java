@@ -3,6 +3,7 @@ package me.seungchan.springbootdeveloper.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.seungchan.springbootdeveloper.domain.Article;
 import me.seungchan.springbootdeveloper.dto.AddArticleRequest;
+import me.seungchan.springbootdeveloper.dto.UpdateArticleRequest;
 import me.seungchan.springbootdeveloper.repository.BlogRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -165,5 +166,47 @@ class BlogApiControllerTest {
         List<Article> articles = blogRepository.findAll(); // 전체 초회를 해서 반환한 배열
 
         assertThat(articles).isEmpty(); // 배열이 비었으면
+    }
+
+    @DisplayName("updateArticle: 블로그 글 수정에 성공한다.")
+    @Test
+    public void updateArticleTest() throws Exception{
+        // given
+        // 블로그 글을 저장하고
+        // 블로그 글 수정에 필요한 요청 객체를 만든다.
+        final String url = "/api/articles/{id}";
+        final String title = "title";
+        final String content = "content";
+
+        Article savedArticle = blogRepository.save(Article.builder()
+                .title(title)
+                .content(content)
+                .build()
+        );
+
+        // 새로운 데이터
+        final String newTitle = "new Title";
+        final String newContent = "new content";
+
+        UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent);
+
+        // when
+        // UPDATE API로 수정 요청을 보낸다.
+        // 이때 요청 타입은 JSON이며
+        // given절에서 미리 만들어둔 객체를 요청 본문으로 함께 보냅니다.
+        ResultActions result = mockMvc.perform(put(url, savedArticle.getId())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(request))); // java 객체를 JSON 형식으로 변환, 수정요청
+
+        // then
+        // 응답코드가 200 OK인지 확인
+        // 블로그 글 id로 조회한 후에 값이 수정되었는지 확인
+        result.andExpect(status().isOk()); // 변경된 것이 잘되었는지 확인
+
+        Article article = blogRepository.findById(savedArticle.getId()).get(); // 현재 기사의 id을 가지고 Article 객체를 얻는다.
+
+        assertThat(article.getTitle()).isEqualTo(newTitle);
+        assertThat(article.getContent()).isEqualTo(newContent);
+
     }
 }
