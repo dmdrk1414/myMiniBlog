@@ -28,4 +28,11 @@ public class BlogService {
     public List<Article> findAll() {
         return blogRepository.findAll();
     }
+
+    // 데이터베이스에 저장되어 있는 글의 ID를 이용해 글을 조회한다.
+    // 블로그 글 하나를 조회하는 메서드인 findById()메서드를 추가한다.
+    public Article findById(long id) {
+        return blogRepository.findById(id) // JPA에서 제공하는 메서드 findById()을 이용한다.
+                .orElseThrow(() -> new IllegalArgumentException("not found: " + id)); // 찾아서 없으면 예외처리.
+    }
 }
