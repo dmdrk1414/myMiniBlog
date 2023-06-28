@@ -35,4 +35,10 @@ public class BlogService {
         return blogRepository.findById(id) // JPA에서 제공하는 메서드 findById()을 이용한다.
                 .orElseThrow(() -> new IllegalArgumentException("not found: " + id)); // 찾아서 없으면 예외처리.
     }
+
+    // 블로그 글의 ID를 받은 뒤
+    // JPA에서 제공하는 deleteById()메서드를 이용해 데이터 베이스에서 데이터를 삭제합니다.
+    public void delete(long id) {
+        blogRepository.deleteById(id);
+    }
 }
