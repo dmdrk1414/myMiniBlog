@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.seungchan.springbootdeveloper.domain.Article;
 import me.seungchan.springbootdeveloper.dto.AddArticleRequest;
 import me.seungchan.springbootdeveloper.dto.ArticleResponse;
+import me.seungchan.springbootdeveloper.dto.UpdateArticleRequest;
 import me.seungchan.springbootdeveloper.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,5 +68,14 @@ public class BlogApiController {
 
         return ResponseEntity.ok()
                 .build();
+    }
+
+    // /api/articles/{id} PUT 요청이 오면 글을 수정하기 위한 updateArticle() 메서드를 작성.
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id, @RequestBody UpdateArticleRequest request) {
+        Article updateArticle = blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updateArticle);
     }
 }

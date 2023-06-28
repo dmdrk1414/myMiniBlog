@@ -26,4 +26,10 @@ public class Article {
         this.title = title;
         this.content = content;
     }
+
+    // 엔티티의 데이터를 수정할 수 있는 메서드
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
