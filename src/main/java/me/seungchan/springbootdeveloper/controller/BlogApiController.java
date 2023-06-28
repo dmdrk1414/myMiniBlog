@@ -56,4 +56,16 @@ public class BlogApiController {
         return ResponseEntity.ok()
                 .body(new ArticleResponse(article));
     }
+
+    // /api/articles/{id} DELETE 요청이 오면
+    // 글을 삭제하기 위한 findArticles() 메서드를 작성
+    @DeleteMapping("/api/articles/{id}")
+    // @PathVariable 매너테이션은 URL에서 값을 가져오는 애너테이션
+    // /api/articles/3 GET 요청을 받으면 id에 3이 들어온다.
+    public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
+        blogService.delete(id);
+
+        return ResponseEntity.ok()
+                .build();
+    }
 }
