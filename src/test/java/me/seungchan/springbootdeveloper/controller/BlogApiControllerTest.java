@@ -26,9 +26,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.assertj.core.api.Assertions.assertThat;
 
+// MockMVC 메서드 설명
+// perform() : 메서드는 요청을 전송하는 역할을 하는 메서드
+//              반환은 ResultActions 객체를 받으며
+//              ResultActions 객체는 반환값을 검증하고 확인한는 andExpect() 메서드를 제공
+
+// accept() : 메서드는 요청을 보낼 때 무슨 타입으로 응답을 받을지 결정하는 메서드
+//              JSON, XML 등 다양한 타입이 있지만, JSON을 받는다고 명시해둔다.
+
+// jsonPath("$[0].${필드명}) : JSON 응답값의 값을 가져오는 역할을 하는 메서드
+//                           0번째 배열에 들어있는 객체의 id, name값을 가져온다
+// ------------------------------------------------------------------
+
 // 메인 애플리케이션 클래스에 추가하는 애너테이션인 @SpringBootApplication이 있는 클래스 찾고
 // 클래스에 포함되어 있는 빈을 찾은 다음, 테스트용 애플리케이션 컨텍스트라는 것을 만든다.
 @SpringBootTest // 테스트용 애플리케이션 컨텍스트
+
+// @AutoConfigureMockMvc는 MockMvc를 생성, 자동으로 구성하는 애너테이션
+// MockMvc는 어플리케이션을 서버에 배포하지 하지 않고 테스트용 MVC 환경을 만들어 요청 및 전송, 응갇기능을 제공하는 유틸리티 클래스
+// 컨트롤러를 테스트를 할때 사용되는 클래스
 @AutoConfigureMockMvc // MockMvc 생성
 class BlogApiControllerTest {
 
@@ -37,6 +53,9 @@ class BlogApiControllerTest {
     @Autowired
     protected MockMvc mockMvc;
 
+    // ObjectMapper 클래스 - 직렬화, 역직렬화 할때 사용
+    // 자바 객체를 JSON 데이터로 변환 OR JSON 데이터를 자바 객체로 변환
+    // 직렬화 : 자바 시스템 내부에서 사용하는 객체를 외부에서 사용하도록 데이터를 변환하는 작업
     @Autowired
     protected ObjectMapper objectMapper; // 직렬화, 역직렬화를 위한 클래스
 
@@ -64,10 +83,12 @@ class BlogApiControllerTest {
         final AddArticleRequest userRequest = new AddArticleRequest(title, content);
 
         // 객체 JSON 으로 직렬화
+        //
         final String requestBody = objectMapper.writeValueAsString(userRequest); // 객체의 직렬화
 
         // when
         // 성정한 내용을 바탕으로 요청 전송
+        // 메서드설명 윗 주석 참고
         ResultActions result = mockMvc.perform(post(url) // 블로그 글 추가에 필요한 요청 객체를 만든다.
                 .contentType(MediaType.APPLICATION_JSON_VALUE) // 쵸청 타입은 JSON입니다.
                 .content(requestBody)); // given 절에서 미리 만들어둔 객체를 요청 본문으로 함께 보냅니다.
