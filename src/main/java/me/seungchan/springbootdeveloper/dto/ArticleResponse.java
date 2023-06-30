@@ -5,6 +5,7 @@ import me.seungchan.springbootdeveloper.domain.Article;
 
 
 // 응답을 위한 DTO를 먼저 작성
+// 테이블 findAll, findById 을 할때 객체를 생성해서 응답을 하는 용도
 @Getter
 public class ArticleResponse {
 
