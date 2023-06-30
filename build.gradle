@@ -28,6 +28,9 @@ dependencies { // 프로젝트를 개발하며 필요한 기능의 의존성
     // 반복 메서드 작성 작업을 줄여준다. 77쪽
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // 타임리프 사용을 위한 의존성 추가하기
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 test {
