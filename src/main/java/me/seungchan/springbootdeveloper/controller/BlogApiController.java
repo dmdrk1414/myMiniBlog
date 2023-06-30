@@ -39,10 +39,19 @@ public class BlogApiController {
         // 요청한 정보를 로직처리를 하여 리턴을 한다.
         return ResponseEntity.status(HttpStatus.CREATED) // 응답 코드로 201, Created를 응답하고
                 .body(savedArticle); // 테이블에 저장된 객체를 반환
+
+        /* 꼭 알아두면 좋을 응답 코드
+           • 200OK : 요청이 성공적으로 수행되었음
+           • 201 Created : 요청이 성공적으로 수행되었고, 새로운 리소스가 생성되었음
+           • 400 Bad Request : 요청 값이 잘못되어 요청에 실패했음
+           • 403 Forbidden : 권한이 없어 요청에 실패했음 .
+           • 404 Not Found : 요청 값으로 찾은 리소스가 없어 요청에 실패했음
+           • 500 Internal Server Error : 서버 상에 문제가 있어 요청에 실패했음*/
     }
 
     // HTTP 메서드가 GET일 때 전달 받는 URL와 동일하면 메서드로 매핑
     @GetMapping("/api/articles") // 조회한뒤 반환
+    // 글 전체를 조회 -> 응답용 객체인 ArticleResponse로 파싱 -> body에 담아 클라이언트에게 전송
     public ResponseEntity<List<ArticleResponse>> findAllArticles() {
         List<ArticleResponse> articles = blogService.findAll()
                 .stream()
