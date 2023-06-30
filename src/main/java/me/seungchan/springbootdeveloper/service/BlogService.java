@@ -11,8 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+// lombok : @RequiredArgsConstructor
 @RequiredArgsConstructor // final이 붙거나  @NotNull이 붙는 필드의 생성자 추가
-@Service  // 빈으로 등록
+@Service  // 해당 클래스를 빈으로 서블릿 컨테이너에 등록
 public class BlogService {
     // TODO: 여기 삭제 하번 책 오류 확인
      @Autowired // 빈 주입
@@ -46,6 +47,11 @@ public class BlogService {
 
     // 글수정 메서드
     // 리포지터리를 사용해 글을 수정하는 update() 메서드
+
+    // @Transactional 매칭한 메서드를 하나의 트랜잭션으로 묶는 역할
+    // update() 메서드는 엔티티의 필드 값이 바뀌면 중간에 에러가 발생해도 제대로 된
+    // 값 수정을 보장하게 되었다.
+    // 트랜잭션이란 데이터베이스의 데이터를 바꾸기 위해 묶은 작업의 단위
     @Transactional // 매칭한 메서드를 하나의 트랜잭션으로 묶는 역할
     public Article update(long id, UpdateArticleRequest request) {
         Article article = blogRepository.findById(id)
