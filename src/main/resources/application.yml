@@ -22,3 +22,8 @@ spring:
     url: jdbc:h2:mem:testdb  # H2 접속 정보
     username: sa  # H2 접속 시 입력할 username 정보 (원하는 것으로 입력)
     password:  # H2 접속 시 입력할 password 정보 (원하는 것으로 입력)
+
+# JWT 토큰을 만들려면 이슈 발급자(issuer), 비밀키(secret_key)를 필수적으로 설정
+jwt:
+  issuer: ajufresh@gmail.com
+  secret_key: study-springboot
