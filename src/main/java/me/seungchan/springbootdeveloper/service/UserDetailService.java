@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class UserDetailService implements UserDetailsService {
+    // Config/WebSecurityConfig에 있는 authenticationManager에 저장을해서 이용
 
     private final UserRepository userRepository;
 
