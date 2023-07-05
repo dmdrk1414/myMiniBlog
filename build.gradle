@@ -41,6 +41,14 @@ dependencies { // 프로젝트를 개발하며 필요한 기능의 의존성
 
     // 스프링 시큐리티를 테스트하기 위한 의존성 추가
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // 9장 추가 JWT 이용
+    // 자바에서 JWT를 사용하기 위한 라이브러리를 추가하고
+    // XML 문서와 자바 객체 간 매핑을 자동화 하는 jax-api를 추가합니다.
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' // 자바 JWT 라이브러리
+    testImplementation 'org.springframework.security:spring-security-test' // XML 문서와 Java 객체 간 매핑을 자동화
 }
 
 test {
