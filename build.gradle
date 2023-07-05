@@ -49,6 +49,12 @@ dependencies { // 프로젝트를 개발하며 필요한 기능의 의존성
     testImplementation 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test' // 자바 JWT 라이브러리
     testImplementation 'org.springframework.security:spring-security-test' // XML 문서와 Java 객체 간 매핑을 자동화
+
+    //프로젝트에 jjwt 라이브러리를 추가하여 JSON Web Token(JWT)을 생성하고
+    // 처리하는 기능을 사용할 수 있도록 해줍니다.
+    // JWT는 인증 및 인가를 위한 토큰 기반 인증 방식으로 자주 사용되며,
+    // jjwt는 JWT를 쉽게 생성하고 구문 분석하고 검증할 수 있는 Java 라이브러리입니다
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
 }
 
 test {
