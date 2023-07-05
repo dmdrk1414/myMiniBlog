@@ -11,17 +11,20 @@ spring:
         format_sql: true
     defer-datasource-initialization: true #  테이블 생성 후에 data.sql 실행
 
+  # Database Setting Info (Database를 H2로 사용하기 위해 H2연결 정보 입력)
+  # 우리가 쓰는 데이터베이스는 H2이다.
+  # H2 관련 설정 내용에 url은 jdbc:h2:mem:testdb을
+  # 사용자 이름에는 sa를 입력하세요
+  datasource:  # HTTPS BlogApiController Post매핑 요청 확인하기 위해 H2 콘솔 활성화
+    url: jdbc:h2:mem:testdb
+    username: sa
+
   # H2 Setting Info (H2 Console에 접속하기 위한 설정정보 입력)
+  # 실제로 데이터 베이스에 추가되는 데이터를 확인하기 위해 콘솔을 활성화하는 옵션
   h2:
     console:
       enabled: true  # H2 Console을 사용할지 여부 (H2 Console은 H2 Database를 UI로 제공해주는 기능)
       path: /h2-console  # H2 Console의 Path  # 기본으로 설정되어 있다.
-  # Database Setting Info (Database를 H2로 사용하기 위해 H2연결 정보 입력)
-  datasource:  # HTTPS BlogApiController Post매핑 요청 확인하기 위해 H2 콘솔 활성화
-    driver-class-name: org.h2.Driver  # Database를 H2로 사용하겠다.
-    url: jdbc:h2:mem:testdb  # H2 접속 정보
-    username: sa  # H2 접속 시 입력할 username 정보 (원하는 것으로 입력)
-    password:  # H2 접속 시 입력할 password 정보 (원하는 것으로 입력)
 
 # JWT 토큰을 만들려면 이슈 발급자(issuer), 비밀키(secret_key)를 필수적으로 설정
 jwt:
