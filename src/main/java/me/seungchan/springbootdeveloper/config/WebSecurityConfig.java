@@ -67,6 +67,7 @@ public class WebSecurityConfig {
                     // 로그아웃 이후에 세션을 전체 삭제할지 여부를 설정한다.
                     .invalidateHttpSession(true)
                 .and()
+                .csrf().disable() // 6. csrf 비활성화 TODO : 활성화하기
                 .build();
     }
 
