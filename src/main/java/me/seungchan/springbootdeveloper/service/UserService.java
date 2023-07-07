@@ -19,7 +19,6 @@ public class UserService {
         return userRepository.save(
                     User.builder()
                     .email(dto.getEmail())
-                    .auth(dto.getAuth())
                     // 패스워드 암호화
                     // 패스워드를 저장할 때 시큐리티를 설정하며 패스워드 인코딩용으로 등록한 빈을 사용해서
                     // 암호화 한후에 저장한다.
