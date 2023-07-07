@@ -30,13 +30,26 @@ public class User implements UserDetails { // UserDetails를 상속받아 인증
     @Column(name = "password", nullable = false)
     private String password;
 
+    // 사용자 이름
+    // OAuth 관련 키를 저장
+    @Column(name = "nickname", unique = true)
+    private String nickname;
+
+    // 생성자에 nickname 추가.
     @Builder
-    public User(String email, String password, String auth) {
+    public User(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
     }
 
-    // 권한 관련 ---------------------------------------a
+    // 사용자 이름 변경 메서드
+    public User update(String nickname) {
+        this.nickname = nickname;
+
+        return this;
+    }
+        // 권한 관련 ---------------------------------------a
 
     // 사용자가 가지고 있는 권한의 목록을 반환합니다.
     // 현재 예제 코드에서는 사용자 이외의 권한이 없기 때문에 user 권한만 담아 반환한다.
