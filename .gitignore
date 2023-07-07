@@ -35,6 +35,8 @@ bin/
 /nbdist/
 /.nb-gradle/
 
+application.yml
+
 ### VS Code ###
 .vscode/
 
