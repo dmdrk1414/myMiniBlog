@@ -6,6 +6,7 @@ import me.seungchan.springbootdeveloper.dto.AddArticleRequest;
 import me.seungchan.springbootdeveloper.dto.UpdateArticleRequest;
 import me.seungchan.springbootdeveloper.repository.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +43,11 @@ public class BlogService {
     // 블로그 글의 ID를 받은 뒤
     // JPA에서 제공하는 deleteById()메서드를 이용해 데이터 베이스에서 데이터를 삭제합니다.
     public void delete(long id) {
-        blogRepository.deleteById(id);
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+
+        authorizeArticleAuthor(article);
+        blogRepository.delete(article);
     }
 
     // 글수정 메서드
@@ -57,8 +62,18 @@ public class BlogService {
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
 
+        authorizeArticleAuthor(article);
         article.update(request.getTitle(), request.getContent());
 
         return article;
+    }
+
+    // 게시글을 작성한 유저인지 확인
+    // 10장 추가.
+    private static void authorizeArticleAuthor(Article article) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!article.getAuthor().equals(userName)) {
+            throw new IllegalArgumentException("not authorized");
+        }
     }
 }
