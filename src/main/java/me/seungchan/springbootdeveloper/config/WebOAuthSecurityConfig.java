@@ -24,6 +24,9 @@ import org.springframework.stereotype.Component;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
+// 이 클래스는 OAuth2를 사용하는 웹 애플리케이션의 보안 설정을 담당합니다.
+// 주로 HTTP 요청에 대한 권한 설정, 토큰 인증 필터 추가, OAuth2 로그인 및 로그아웃 설정, 예외 처리 등을 다룹니다.
+
 @RequiredArgsConstructor
 @Configuration
 public class WebOAuthSecurityConfig {
