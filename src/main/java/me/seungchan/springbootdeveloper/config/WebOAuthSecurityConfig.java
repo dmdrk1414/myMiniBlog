@@ -20,7 +20,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.stereotype.Component;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
@@ -41,7 +40,7 @@ public class WebOAuthSecurityConfig {
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring()
                 .requestMatchers(toH2Console())
-                .requestMatchers("/img/**", "/css/**", "/js/**");
+                .requestMatchers("/static/img/**", "/css/**", "/js/**");
     }
 
     // 토큰 방식으로 인증을 하므로 기존 폼 로그인, 세션 기능을 비활성화합니다.

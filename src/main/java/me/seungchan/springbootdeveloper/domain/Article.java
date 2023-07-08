@@ -31,6 +31,8 @@ public class Article {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "author", nullable = false)
+    private String author;
 
     @CreatedDate
     @Column(name = "created_at")
@@ -45,7 +47,8 @@ public class Article {
     // 생성자 위에 입력하면 빌더 패턴 방식으로 객체를 생가능하다.
     // 빌더 패턴은 어느 필들에 어떤 값이 들어가는지 명시적으로 파악
     @Builder // 빌더 패턴으로 객체 생성
-    public Article(String title, String content) {
+    public Article(String author, String title, String content) {
+        this.author = author;
         this.title = title;
         this.content = content;
 

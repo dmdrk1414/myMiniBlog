@@ -21,10 +21,10 @@ public class BlogService {
 
 
     // 블로그 글 추가 메서드
-    public Article save(AddArticleRequest request) {
+    public Article save(AddArticleRequest request, String userName) {
         // controller에서 받은 데이터를
         // blogRepository에 의해 DB로 저장한다.
-        return blogRepository.save((request.toEntity()));
+        return blogRepository.save((request.toEntity(userName)));
     }
 
     // 블로그 글 조회 메서드

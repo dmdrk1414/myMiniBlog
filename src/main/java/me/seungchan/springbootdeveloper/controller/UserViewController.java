@@ -12,7 +12,7 @@ public class UserViewController {
     // /login 경로로 접근하면 login() 메서드가 login.html
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "oauthLogin";
     }
 
     // /signup 경로에 접근하면 signup() 메서드는 singnup.html를 반환
