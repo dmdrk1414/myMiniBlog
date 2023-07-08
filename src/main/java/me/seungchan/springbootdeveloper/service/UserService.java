@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+//    private final BCryptPasswordEncoder bCryptPasswordEncoder; // 10장 추가 이후 사용안함
 
     // 서비스 계층에서 레포지토리에 dto의 정보를 저장
     public Long save(AddUserRequest dto) {
